@@ -167,6 +167,78 @@ const DEFAULT_TOPICS=[{
     {id:'skyvern-use',title:'איפה הוא שימושי',summary:'טפסים, חילוץ מידע והורדת מסמכים מתהליכים חוזרים',done:false,body:'שימושים מתאימים הם הורדת חשבוניות מפורטלים, מילוי אותו טופס בכמה אתרים, חילוץ טבלאות והפעלת תהליך אדמיניסטרטיבי שחוזר על עצמו. אפשר לעבוד דרך ממשק No‑Code, Python או TypeScript SDK, REST API, CLI ו־MCP.\n\nמתחילים ביעד קטן שאפשר לבדוק ידנית. מגדירים תוצאה ברורה, מגבלת צעדים וראיית הצלחה, ואז משווים כל הרצה לתוצאה הצפויה. תהליך יציב יכול להפוך ל־Workflow חוזר; פעולה חד־פעמית קטנה לא תמיד מצדיקה עלות של מודל ראייה.'},
     {id:'skyvern-safety',title:'עלות, פרטיות וגבולות פעולה',summary:'לא נותנים לסוכן להוציא כסף או לשנות מידע בלי אישור',done:false,body:'כל צעד חזותי עשוי לצרוך טוקנים, ולכן בודקים עלות וזמן לפני שמריצים מאות אתרים. התחברות חושפת Cookies, סיסמאות ומידע שבדף למערכת ולמודל שהוגדר; משתמשים בחשבון בדיקה, הרשאות מצומצמות וסודות מנוהלים.\n\nרכישה, שליחה, מחיקה או שינוי הרשאות נעצרים לאישור אנושי ומאומתים אחרי הביצוע. מכבדים תנאי שימוש והגבלות של האתר. אפשר להשתמש בענן המנוהל או באירוח עצמי; אירוח עצמי דורש בדרך כלל דפדפן, ספק LLM, מסד PostgreSQL, תחזוקה ולעיתים Proxy. הקוד המרכזי הוא AGPL‑3.0, בעוד יכולות Anti‑Bot מסוימות שייכות לשירות הענן.'}
   ]
+},{
+  id:'orbitagents',title:'Orbitagents — זיכרון משותף לצוות AI',priority:'ללמוד',source_url:'https://docs.orbitagents.xyz/start/what-is-orbit',website_url:'https://orbitagents.xyz/',
+  summary:'שכבת ענן משותפת שמחברת כלי AI לזיכרון, Vault ודשבורד אחד באמצעות MCP.',
+  chapters:[
+    {id:'orbit-what',title:'מהו Orbitagents',summary:'דשבורד וזיכרון משותף לסוכני AI',done:false,body:'Orbit הוא שירות ענן שמחבר Claude, Codex, Cursor וכלי MCP נוספים לאותו Workspace. שיחות, החלטות, קבצים ותוצרים נשמרים ב־Vault חיפוש אחד.\n\nהממשק Orbie מציג גרף ידע, פרויקטים, Sessions ותוצרים. הוא לא מחליף את המודלים; הוא שכבת זיכרון וניהול מעליהם.'},
+    {id:'orbit-flow',title:'איך החיבור עובד',summary:'MCP פרטי מכניס הקשר ומחזיר תוצאות',done:false,body:'בחשבון מקבלים כתובת MCP פרטית ומחברים אותה לכל סוכן. בתחילת ריצה הסוכן קורא החלטות וידע, במהלך העבודה מדווח אירועים, ובסיום שומר תוצאה ל־Vault.\n\nכתובת ה־MCP היא מפתח גישה וחייבת להישאר סודית. בודקים קודם בפרויקט ניסוי לפני שמחברים מידע עסקי.'},
+    {id:'orbit-fit',title:'מחיר, פרטיות והתאמה אלינו',summary:'שימושי בין כמה כלי AI, אבל אינו מקומי',done:false,body:'יש מסלול חינם; Pro עולה 8 דולר, Premium 24 דולר ו־Max Mode 39 דולר לחודש. Premium מוסיף שיחה קולית עם גרף הידע.\n\nהנתונים נשמרים בענן Supabase באירופה, וחלק מפעולות ה־AI נשלחות ל־Gemini או OpenAI. אצלנו Hermes, Obsidian ו־Kanban כבר מכסים חלק גדול מהיכולת מקומית; Orbit מעניין בעיקר אם רוצים דשבורד ענן אחד שחוצה כמה ספקי AI.'}
+  ]
+},{
+  id:'dbx',title:'DBX — לקוח מסדי נתונים קל עם MCP',priority:'חשוב',source_url:'https://github.com/t8y2/dbx',website_url:'https://dbxio.com/en',
+  summary:'כלי קטן ל־90+ מסדי נתונים עם Desktop, CLI, Docker, AI ו־MCP.',
+  chapters:[
+    {id:'dbx-what',title:'מהו DBX',summary:'תחליף קל לכלי DB כבדים',done:false,body:'DBX הוא לקוח חוצה־פלטפורמות בגודל כ־20 MB בלי Chromium או Java. הוא מתחבר בין היתר ל־PostgreSQL, SQLite, Redis, MongoDB ו־DuckDB.\n\nיש עורך SQL, תצוגת טבלאות, סכמות, ייבוא וייצוא. הקוד פתוח ברישיון Apache‑2.0 ולפי הפרויקט אין Telemetry.'},
+    {id:'dbx-mcp',title:'AI ו־MCP למסד',summary:'סוכן יכול לשאול DB דרך חיבורים קיימים',done:false,body:'DBX כולל עוזר SQL ושרת MCP נפרד שמאפשר ל־Claude, Cursor וסוכנים אחרים להשתמש בחיבורים שהוגדרו. אפשר לעבוד עם ספק ענן או Ollama מקומי.\n\nלמערכת חיה נותנים תחילה משתמש Read‑Only, חוסמים פקודות כתיבה ומאמתים כל שאילתה. SQL שנוצר ב־AI אינו הוכחה שהוא בטוח.'},
+    {id:'dbx-fit',title:'איפה הוא יכול לעזור לנו',summary:'בדיקות PostgreSQL ו־Redis בלי סביבת עבודה כבדה',done:false,body:'הוא יכול לקצר חקירת נתונים במכונת החבילות, TikTik ופרויקטים נוספים, במיוחד כשצריך לעבור בין PostgreSQL, SQLite ו־Redis.\n\nלא מחליפים CLI ותסריטי Readback שכבר מוכחים. מתחילים בפרופיל בדיקה מבודד ומוסיפים אותו רק אם הוא חוסך זמן בלי להרחיב הרשאות.'}
+  ]
+},{
+  id:'whichllm',title:'whichllm — איזה מודל מקומי מתאים לחומרה',priority:'ללמוד',source_url:'https://github.com/Andyyyy64/whichllm',website_url:'https://pypi.org/project/whichllm/',
+  summary:'CLI שמזהה CPU, GPU, RAM ו־VRAM ומדרג מודלים מקומיים לפי התאמה, מהירות ובנצ׳מרקים.',
+  chapters:[
+    {id:'which-what',title:'מה הכלי פותר',summary:'לא לבחור מודל רק לפי מספר פרמטרים',done:false,body:'whichllm בודק את החומרה ומוצא מודלים מ־Hugging Face שיכולים לרוץ עליה. הוא משקלל זיכרון, Quantization, מהירות משוערת וציוני איכות עדכניים.\n\nהפלט מסביר אם המודל נכנס כולו ל־GPU, דורש Offload ל־RAM או יעבוד רק על CPU.'},
+    {id:'which-plan',title:'בחירה ותכנון חומרה',summary:'השוואת מודלים וגם סימולציה לפני קנייה',done:false,body:'אפשר לבחור פרופיל Coding, Vision, Math או General, לסנן לפי מהירות ולהריץ מודל מומלץ בפקודה אחת. מצב Plan מעריך איזו חומרה דרושה למודל מסוים.\n\nהוא שימושי לפני הורדת קבצים גדולים או רכישת GPU, וגם להשוואת המחשב הנוכחי לכרטיס עתידי.'},
+    {id:'which-limit',title:'הערכה אינה Benchmark חי',summary:'מהירות וזיכרון חייבים אימות אמיתי',done:false,body:'הדירוג משלב מקורות ציבוריים והערכות ארכיטקטורה; הוא אינו מודד בפועל כל מודל על המחשב שלנו. תוצאות Offload ו־CPU עשויות להיות איטיות מהצפוי.\n\nמריצים ניסוי קטן עם ההקשר האמיתי שלנו לפני החלטה. מתקינים בסביבה מבודדת, לא ב־Python המשותף שמריץ אוטומציות.'}
+  ]
+},{
+  id:'windrecorder',title:'Windrecorder — חיפוש מקומי בכל מה שראית',priority:'חשוב',source_url:'https://github.com/yuka-friends/Windrecorder',
+  summary:'מקליט מסך מקומי ל־Windows עם OCR, חיפוש, Rewind וסטטיסטיקות פעילות — ללא העלאה לענן.',
+  chapters:[
+    {id:'wind-what',title:'זיכרון חזותי מקומי',summary:'מסך, OCR, כותרות וכתובות הופכים לחיפוש',done:false,body:'Windrecorder מצלם שינויים במסך או מקליט וידאו, מפעיל OCR ושומר גם כותרת חלון וכתובת דפדפן. אחר כך אפשר לחפש מילה ולחזור לרגע שבו היא הופיעה.\n\nהכול נשמר בתיקיית userdata מקומית ומוצג דרך WebUI. הוא דומה ל־Windows Recall, אך פתוח ומקומי.'},
+    {id:'wind-use',title:'איך הוא יכול לעזור לעבודה',summary:'למצוא מסך, הודעה או תקלה שכבר ראינו',done:false,body:'הכלי יכול לעזור לשחזר צעדים בבאג, למצוא עמוד ספק שנעלם, לאתר שיחה או מסך הגדרות ולבנות תיעוד מתוך עבודה אמיתית.\n\nהוא אינו מחליף לוגים ו־Readback. צילום מסך מראה מה הוצג, לא בהכרח מה נשמר במערכת.'},
+    {id:'wind-risk',title:'סיכון פרטיות חריג',summary:'הקלטת מסך יכולה ללכוד סודות ולקוחות',done:false,body:'מקליט מסך עלול לשמור סיסמאות, Cookies, מספרי הזמנות ומידע אישי. מחשב שנפרץ יקבל מאגר עשיר מאוד גם אם אין ענן.\n\nלפני שימוש חייבים הצפנת דיסק, החרגת אפליקציות ושדות רגישים, מגבלת שמירה וגיבוי מאובטח. אצלנו לא מתקינים אותו אוטומטית; קודם בודקים מדיניות ו־PoC על חלון לא רגיש.'}
+  ]
+},{
+  id:'docling',title:'Docling — הכנת מסמכים ל־AI',priority:'חשוב',source_url:'https://github.com/docling-project/docling',website_url:'https://docling-project.github.io/docling/',
+  summary:'מנוע פתוח שממיר PDF, Word, PowerPoint, תמונות וטבלאות למבנה נקי עבור RAG, חיפוש וסוכנים.',
+  chapters:[
+    {id:'docling-what',title:'מה Docling עושה',summary:'שומר מבנה ולא רק מחלץ טקסט שטוח',done:false,body:'Docling מנתח מסמכים ומזהה כותרות, פסקאות, טבלאות, תמונות וסדר קריאה. הוא יכול להוציא Markdown, JSON ומבנה DoclingDocument.\n\nיש תמיכה ב־PDF, DOCX, PPTX, XLSX, HTML ותמונות, כולל OCR למסמכים סרוקים.'},
+    {id:'docling-use',title:'שימוש אצלנו',summary:'מדריכים, Obsidian וידע לסוכנים',done:false,body:'אפשר להפוך Runbook, מפרט ספק, PDF טיסות או מסמך תפעולי לחומר מסודר שהסוכנים יכולים לחפש ולצטט. התוצר יכול להיכנס ל־Obsidian או ל־RAG בלי כתיבת Parser נפרד לכל פורמט.\n\nשומרים גם קישור ומספר עמוד כדי שהסוכן יחזור למקור ולא יסתמך רק על חילוץ.'},
+    {id:'docling-limit',title:'OCR אינו אמת',summary:'טבלאות ועברית דורשות בדיקת מקור',done:false,body:'סריקה חלשה, RTL, טבלה מורכבת או כתב קטן יכולים לשבש מילים ועמודות. מסמך שהומר בהצלחה עדיין עשוי להיות שגוי סמנטית.\n\nבודקים מדגם עמודים מול המקור ומבודדים מסמכים לא אמינים. מידע רגיש נשאר מקומי אלא אם אושר אחרת.'}
+  ]
+},{
+  id:'gh-dash',title:'gh-dash — GitHub מהטרמינל',priority:'ללמוד',source_url:'https://github.com/dlvhdr/gh-dash',website_url:'https://dlvhdr.github.io/gh-dash/',
+  summary:'ממשק TUI מהיר ל־Pull Requests ול־Issues מעל GitHub CLI.',
+  chapters:[
+    {id:'ghdash-what',title:'מה מקבלים',summary:'לוח PR ו־Issues בלי לעזוב טרמינל',done:false,body:'gh-dash מציג Pull Requests ו־Issues בכרטיסיות מסוננות, עם פרטים, Checks, תגובות ו־Diff. הוא משתמש בהתחברות הקיימת של gh CLI.\n\nמתאים למעבר מהיר בין הרבה מאגרים בלי לפתוח עשרות לשוניות דפדפן.'},
+    {id:'ghdash-flow',title:'התאמה לזרימת העבודה',summary:'Sections, פילטרים וקיצורי מקלדת',done:false,body:'אפשר להגדיר Sections לפי בעלים, Review Requested, CI כושל או Repository, ולהוסיף פקודות מותאמות. כך רואים מיד מה דורש תשומת לב.\n\nהערך אצלנו הוא מעקב אחר main, ביקורות ומיזוגים בפרויקטים רבים ממסך אחד.'},
+    {id:'ghdash-safety',title:'מה לא עושים אוטומטית',summary:'ממשק מהיר עדיין מחזיק הרשאות GitHub',done:false,body:'הכלי פועל עם ההרשאות של gh. מיזוג, סגירה או תגובה הם פעולות חיות. מתחילים בקריאה בלבד ומאמתים Repository ו־Branch לפני פעולה.\n\nהוא משפר תצוגה, לא מחליף בדיקות, Review או הוכחת deploy.'}
+  ]
+},{
+  id:'d2-diagrams',title:'D2 — דיאגרמות כקוד',priority:'ללמוד',source_url:'https://github.com/d2lang/d2',website_url:'https://d2lang.com/',
+  summary:'שפה טקסטואלית שמייצרת דיאגרמות נקיות, ניתנות לגרסאות וקלות לעדכון.',
+  chapters:[
+    {id:'d2-what',title:'למה דיאגרמות כקוד',summary:'המקור הוא טקסט שנשמר ב־Git',done:false,body:'ב־D2 כותבים ישויות וקשרים בכמה שורות, והמנוע מסדר את התרשים ומייצא SVG או PNG. שינוי ארכיטקטורה הופך ל־Diff קריא במקום עריכת ציור ידנית.\n\nהוא מתאים למפות מערכת, Sequence, מבני DB וזרימות נתונים.'},
+    {id:'d2-use',title:'שימוש בתיעוד שלנו',summary:'מכונת החבילות, TikTik וזרימות סוכנים',done:false,body:'אפשר לתעד את המסלול ספק ← GoldenSeat ← WordPress, את מחזור חיי החבילה ואת תלויות Kanban. הסוכן יכול לעדכן את קובץ D2 יחד עם הקוד.\n\nשומרים את מקור התרשים ליד התיעוד ומייצרים SVG ל־HTML ול־Obsidian.'},
+    {id:'d2-choice',title:'D2 מול Mermaid',summary:'משתמשים בכלי הפשוט שמספיק',done:false,body:'Mermaid כבר מובנה בהרבה כלים ומתאים לתרשימים פשוטים. D2 מציע שליטה בפריסה, Themes ותרשימים גדולים יותר.\n\nלא ממירים תיעוד קיים בלי צורך. משתמשים ב־D2 כש־Mermaid נהיה צפוף או קשה לתחזוקה.'}
+  ]
+},{
+  id:'viewmax-shorts',title:'Viewmax — יצירת YouTube Shorts עם AI',priority:'ללמוד',source_url:'https://www.instagram.com/reel/DbqrHmDxvWY/',website_url:'https://viewmax.io/',
+  summary:'כלי ליצירת סרטונים קצרים, Voiceover, כתוביות ופרסומות — עם בדיקת מציאות לפני הבטחות הכנסה.',
+  chapters:[
+    {id:'viewmax-what',title:'מה Viewmax עושה',summary:'מתסריט לסרטון אנכי מוכן לפרסום',done:false,body:'Viewmax מרכז מחולל וידאו, תמונות, Voiceover, כתוביות ופורמטים של Shorts, UGC ופרסומות. אפשר להדביק רעיון או תסריט ולקבל סרטון אנכי ללא צילום.\n\nהכלי גם מאפשר העלאת מדיה, Remix ושילוב Claude דרך MCP. איכות, זכויות ועלות תלויות במודל ובחומרים שנבחרו.'},
+    {id:'viewmax-reel',title:'מה הסרטון מציע',summary:'ChatGPT לרעיון ולסצנות ואז יצירה ב־Viewmax',done:false,body:'הריל מציע לבקש מ־ChatGPT רעיון לשיר ילדים, לפרק אותו לסצנות ולהדביק את התסריט למחולל של Viewmax. אחר כך מוסיפים כתוביות וקול באנגלית ומפרסמים כ־YouTube Short.\n\nזו זרימת יצירה אפשרית, אבל לא מכונת כסף. צריך לבדוק קהל, מקוריות, זכויות, Retention ועלות לכל סרטון.'},
+    {id:'viewmax-reality',title:'הכנסה ומוניטיזציה — המציאות',summary:'מיליוני צפיות אינם מבטיחים תשלום קבוע',done:false,body:'לפי YouTube, הכנסות Shorts מגיעות מבריכת מודעות ומשתנות לפי מדינה, צפיות כשירות ושימוש במוזיקה. אין תעריף קבוע של 200 דולר למיליון צפיות.\n\nלפרסומות Shorts נדרשים בדרך כלל 1,000 מנויים ו־10 מיליון צפיות Shorts כשירות ב־90 יום. תוכן משוכפל, אוטומטי או לא מקורי עלול להיפסל. מתחילים בניסוי קטן ומודדים עלות, צפייה מלאה והכנסה אמיתית לפני הרחבה.'}
+  ]
+},{
+  id:'hermes-agent',title:'Hermes Agent — הסוכן שגדל איתך',priority:'חשוב',source_url:'https://github.com/NousResearch/hermes-agent',website_url:'https://hermes-agent.nousresearch.com/docs/',
+  summary:'סוכן AI פתוח עם כלים, זיכרון, Skills, תזמון, משלחות, Bot Mode וחיבור לוואטסאפ וטלגרם.',
+  chapters:[
+    {id:'hermes-what',title:'מהו Hermes Agent',summary:'לא רק צ׳אט — סוכן שמפעיל כלים ומסיים עבודה',done:false,body:'Hermes Agent הוא סוכן קוד פתוח של Nous Research. הוא יכול לעבוד עם קבצים, טרמינל, Web, דפדפן, תמונות וקול, ולבחור בין ספקי מודלים בלי להינעל על מודל אחד.\n\nהוא רץ מקומית, בשרת או בסביבת ענן, ומתחבר ל־CLI, WhatsApp, Telegram, Discord ופלטפורמות נוספות.'},
+    {id:'hermes-learning',title:'זיכרון, Skills ובוטים',summary:'המערכת צוברת ידע ולא מתחילה מאפס',done:false,body:'Hermes שומר זיכרון מתמשך, מחפש שיחות קודמות ויוצר Skills מתהליכים שהצליחו. Bot Mode מאפשר בוטים בשם עם מודל, זיכרון ותפקיד משלהם.\n\nKanban, משלחות ו־Cron מאפשרים עבודה ארוכה ומקבילית גם כשיהודה לא מול המחשב.'},
+    {id:'hermes-ours',title:'איך הוא עובד אצלנו',summary:'וואטסאפ, Obsidian ומכונת החבילות כבר מחוברים',done:false,body:'המערכת הנוכחית עונה בוואטסאפ ובטלגרם, קוראת את Obsidian ב־C:\\Work\\ObsidianVault ומנהלת משימות Kanban. היא יכולה לחקור לינקים, לבנות מדריכים, לפרוס ולבצע QA.\n\nהרשאות מסוכנות נשארות מוגבלות: כסף, סודות, משפטי, הודעות חיצוניות ופעולות בלתי הפיכות דורשים אישור. הצלחה נקבעת לפי Readback ובדיקות, לא לפי טענת הסוכן.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -211,7 +283,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===12,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===21,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
