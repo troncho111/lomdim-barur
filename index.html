@@ -239,6 +239,14 @@ const DEFAULT_TOPICS=[{
     {id:'hermes-learning',title:'זיכרון, Skills ובוטים',summary:'המערכת צוברת ידע ולא מתחילה מאפס',done:false,body:'Hermes שומר זיכרון מתמשך, מחפש שיחות קודמות ויוצר Skills מתהליכים שהצליחו. Bot Mode מאפשר בוטים בשם עם מודל, זיכרון ותפקיד משלהם.\n\nKanban, משלחות ו־Cron מאפשרים עבודה ארוכה ומקבילית גם כשיהודה לא מול המחשב.'},
     {id:'hermes-ours',title:'איך הוא עובד אצלנו',summary:'וואטסאפ, Obsidian ומכונת החבילות כבר מחוברים',done:false,body:'המערכת הנוכחית עונה בוואטסאפ ובטלגרם, קוראת את Obsidian ב־C:\\Work\\ObsidianVault ומנהלת משימות Kanban. היא יכולה לחקור לינקים, לבנות מדריכים, לפרוס ולבצע QA.\n\nהרשאות מסוכנות נשארות מוגבלות: כסף, סודות, משפטי, הודעות חיצוניות ופעולות בלתי הפיכות דורשים אישור. הצלחה נקבעת לפי Readback ובדיקות, לא לפי טענת הסוכן.'}
   ]
+},{
+  id:'comfyui',title:'ComfyUI — יצירת תמונות ווידאו בזרימות Nodes',priority:'חשוב',source_url:'https://github.com/Comfy-Org/ComfyUI',website_url:'https://www.comfy.org/',
+  summary:'ממשק מקומי מודולרי ליצירת תמונות, וידאו ואודיו באמצעות Nodes ו־Workflows.',
+  chapters:[
+    {id:'comfy-what',title:'מהו ComfyUI',summary:'גרף עבודה במקום כפתור קסם',done:false,body:'ComfyUI מחבר מודלים ושלבי יצירה כ־Nodes גלויים. אפשר לשמור, לשתף ולשחזר את אותו Workflow בדיוק.'},
+    {id:'comfy-use',title:'שימוש אצלנו',summary:'קריאייטיב עקבי לתוכן ולפרסום',done:false,body:'אפשר לבנות תבניות חוזרות לתמונות מוצר, מודעות וסרטונים. שומרים Prompt, מודל ו־Seed כדי למדוד ולשחזר תוצאה.'},
+    {id:'comfy-safety',title:'חומרה ובטיחות',summary:'מודלים ו־Custom Nodes דורשים שליטה',done:false,body:'עבודה מקומית דורשת GPU ו־VRAM. מתקינים גרסה יציבה ובודקים רישיון לכל מודל. Custom Nodes הם קוד — מתקינים רק מקור שנבדק ובסביבה מבודדת.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -285,7 +293,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===21,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===22,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
