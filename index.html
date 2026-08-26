@@ -263,6 +263,14 @@ const DEFAULT_TOPICS=[{
     {id:'claude-modes-use',title:'מתי להשתמש בכל מסגרת',summary:'בוחרים כלי לפי ההחלטה, לא מפעילים את כולם',done:false,body:'SWOT מתאים להחלטה עסקית רחבה. Premortem מניח שהמהלך נכשל ומחפש מראש סיבות וסיכונים. Steelman בונה את טיעון הנגד החזק ביותר. Red Team תוקף תוכנית, קוד או תהליך כדי למצוא חורים. ‎/compact מיועד רק לניהול הקשר ארוך ב־Claude Code.'},
     {id:'claude-modes-practical',title:'נוסחים שעובדים אצלנו',summary:'שאלות קצרות עם תוצאה מוגדרת',done:false,body:'לפני השקה: ״בצע Premortem: נניח שנכשלנו בעוד חצי שנה; תן 5 סיבות, סימנים מוקדמים ומניעה״. לפני החלטה: ״Steelman לעמדה הנגדית ואז המלץ״. לפני פריסה: ״Red Team לתוכנית מול אבטחה, כסף, נתונים ו־rollback״. לא משתמשים במסגרות במקום בדיקה חיה, ראיות ואישור לפעולה מסוכנת.'}
   ]
+},{
+  id:'omnisocials',title:'OmniSocials — שכבת סושיאל לסוכני AI',priority:'חשוב',source_url:'https://www.instagram.com/p/DcgN2_REjjS/',website_url:'https://omnisocials.com/',
+  summary:'תכנון, אישור, תזמון, פרסום וניתוח תוכן ב־11 רשתות דרך לוח שנה, API, SDK או MCP.',
+  chapters:[
+    {id:'omnisocials-what',title:'מה OmniSocials מרכז',summary:'Workspace אחד לכל מותג או לקוח',done:false,body:'OmniSocials מחבר Instagram, Facebook, LinkedIn, YouTube, TikTok, X, Pinterest, Threads, Bluesky, Mastodon ו־Google Business. הוא כולל לוח תוכן, תזמון ופרסום, דוחות, Inbox מאוחד ותהליכי אישור. חשבונות מחברים פעם אחת ב־OAuth דרך ה־Dashboard; אי אפשר לחברם דרך ה־API.'},
+    {id:'omnisocials-agents',title:'API, MCP וסוכני AI',summary:'אוטומציה עם שער אישור אנושי',done:false,body:'יש REST API, Webhooks, CLI, SDK בשמונה שפות ושרת MCP ל־Claude, ChatGPT, Cursor והרמס. אצלנו הוא יכול להכין לוח פוסטים לטיקטיק ולתזמן רק אחרי אישור. API key מקבלים Scope מינימלי; לא נותנים לסוכן הרשאת Inbox או פרסום אם אינו צריך אותה.'},
+    {id:'omnisocials-cost-safety',title:'מחיר, פרטיות ומגבלות',summary:'הניסיון חינם; המחיר גדל לפי Seats',done:false,body:'הניסיון הוא 14 יום. המחיר הרשמי הוא $10 לחודש בחיוב שנתי או $12 חודשי לכל Workspace, חבר צוות או מושב לקוח; לכן סוכנות אינה תמיד $10 בסך הכול. פעולות מסוימות ב־X מחויבות בקרדיטים נוספים. השירות מחזיק תוכן ו־OAuth tokens בענן; מנתקים חשבון ומבטלים מפתחות כשמסיימים. טענות האבטחה וה־AES באתר הן הצהרת הספק, לא ביקורת עצמאית.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -309,7 +317,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===24,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===25,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
