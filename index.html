@@ -287,6 +287,14 @@ const DEFAULT_TOPICS=[{
     {id:'grok-build-fit',title:'איפה הוא חוסך לנו זמן',summary:'Prototype לפני מערכת ייצור',done:false,body:'מתאים ל־Landing Page, מחשבון מחיר, Quiz, לוח נתונים וכלי פנימי קטן. אצלנו אפשר להמחיש רעיון לטיקטיק לפני שמפעילים צוות פיתוח. אחרי שהכיוון מאושר מייצאים ל־GitHub ומעבירים לקוד מנוהל, בדיקות ופריסה רגילה; לא משאירים תהליך עסקי קריטי בתוך Prototype לא מבוקר.'},
     {id:'grok-build-limits',title:'שני מוצרים בשם דומה',summary:'Build Mode בדפדפן אינו Grok Build בטרמינל',done:false,body:'הסרטון מתאר את Build Mode הצרכני ב־Grok. בנפרד קיים Grok Build CLI — סוכן קוד מקומי עם TUI, Skills, MCP ו־ACP. אפליקציה שפורסמה יכולה להפעיל API של xAI ולהחזיק Secrets, ולכן בודקים הרשאות, חשיפת מידע, עלות API וקלט עוין. ״ללא קוד״ מתאר את חוויית המשתמש; מאחורי הקלעים עדיין נוצר קוד שדורש QA.'}
   ]
+},{
+  id:'landing-page-dissection',title:'ניתוח דפי נחיתה עם AI',priority:'חשוב',source_url:'https://www.instagram.com/reel/Db7uNMhsvid/',
+  summary:'להפריד בין דף שבאמת עובד לבין מוצר, קהל, הנחה או מדידה שמנפחים את ההמרה.',
+  chapters:[
+    {id:'landing-dissection',title:'Dissection לפני חיקוי',summary:'משווים דפים דומים ומפרקים את סיבת הניצחון',done:false,body:'לא מתחילים מהדף בעל Conversion Rate הגבוה ביותר. מסננים לפי מוצר, מקור תנועה, קהל חדש או חוזר, מכשיר, תקופה, הנחה וזמינות. אחר כך מבקשים מה־AI לייחס את היתרון להצעה, מוצר, קהל, תנועה, אמון או חוויית הדף — ולסמן מה נתמך בנתונים ומה רק השערה.'},
+    {id:'landing-adoption',title:'Adoption Blueprint',summary:'מה להעתיק, לבדוק או להשאיר במקום',done:false,body:'השלב השני ממפה כל מנגנון לדפים מועמדים: Adopt כשיש ראיה חזקה, Test כשיש סיבה סבירה אך אי־ודאות, ו־Do Not Copy כשהיתרון תלוי בהקשר. לכל ניסוי קובעים דף יעד, שינוי אחד, KPI ראשי, Guardrails, גודל מדגם, משך ובעלים. רק אחרי אישור בונים Implementation Pack.'},
+    {id:'landing-guardrails',title:'הגנות מפני מסקנה שקרית',summary:'קורלציה, Tracking ומדגם קטן',done:false,body:'AI אינו מתקן נתונים גרועים. בודקים אירועי Analytics כפולים או חסרים, עונתיות, קמפיין חדש, Returning Customers, Bestseller ומבצע חריג. לא מכריזים על ניצחון בלי A/B Test או השוואה תקפה ומדגם מספיק. בטיקטיק מפרידים תמיד בין השפעת המשחק והמחיר לבין השפעת מבנה העמוד.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -333,7 +341,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===27,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===28,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
