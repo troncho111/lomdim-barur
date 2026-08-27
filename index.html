@@ -279,6 +279,14 @@ const DEFAULT_TOPICS=[{
     {id:'character-workflow',title:'Reference לפני Prompt',summary:'אותה תמונת מקור בכל שוט',done:false,body:'מתחילים מתמונת Reference מאושרת ומייצרים קליפים קצרים. כשאפשר שומרים Seed, Model, יחס תמונה והגדרות קבועים, ומשתמשים בפריים האחרון כפריים פתיחה לשוט הבא. מתקנים סטיות בתמונה לפני שמנפישים; ריצה ארוכה אחת נוטה לצבור שינויי פנים וביגוד.'},
     {id:'character-qa',title:'בדיקת רציפות',summary:'פנים, צבע, קנה מידה ותנועה',done:false,body:'אחרי כל שוט משווים לדף הדמות: צורת פנים ועיניים, צבע ומרקם, מספר אצבעות, סימנים ייחודיים, גובה יחסי וכיוון אור. שוט שנכשל מייצרים מחדש לפני עריכה. הפרופיל מוכיח שהתוצאה אפשרית, אבל אינו חושף שירות או הגדרות; לכן לא מייחסים אותה לכלי מסוים בלי מקור נוסף.'}
   ]
+},{
+  id:'grok-build-mode',title:'Grok Build — אפליקציה משיחה',priority:'חשוב',source_url:'https://www.instagram.com/reel/Dcgg_ygM0Kv/',website_url:'https://x.ai/news/grok-build-for-everyone',
+  summary:'בניית אתר, כלי, משחק או Dashboard בתוך Grok, עם Preview חי ופרסום ל־grok.me.',
+  chapters:[
+    {id:'grok-build-what',title:'מה Build Mode עושה',summary:'Prompt, Preview, תיקונים ופרסום',done:false,body:'מתארים ל־Grok אתר, אפליקציה, משחק או Dashboard והוא בונה גרסה עובדת בתוך השיחה. ממשיכים לבקש שינויים ומפרסמים לקישור grok.me פרטי, לבעלי הקישור או לציבור. אפשר Custom Domain, Remix וייצוא ל־GitHub. נכון להכרזה הרשמית מ־19.8.2026 הוא זמין בכל תוכניות Grok, עם מגבלות שימוש לפי התוכנית.'},
+    {id:'grok-build-fit',title:'איפה הוא חוסך לנו זמן',summary:'Prototype לפני מערכת ייצור',done:false,body:'מתאים ל־Landing Page, מחשבון מחיר, Quiz, לוח נתונים וכלי פנימי קטן. אצלנו אפשר להמחיש רעיון לטיקטיק לפני שמפעילים צוות פיתוח. אחרי שהכיוון מאושר מייצאים ל־GitHub ומעבירים לקוד מנוהל, בדיקות ופריסה רגילה; לא משאירים תהליך עסקי קריטי בתוך Prototype לא מבוקר.'},
+    {id:'grok-build-limits',title:'שני מוצרים בשם דומה',summary:'Build Mode בדפדפן אינו Grok Build בטרמינל',done:false,body:'הסרטון מתאר את Build Mode הצרכני ב־Grok. בנפרד קיים Grok Build CLI — סוכן קוד מקומי עם TUI, Skills, MCP ו־ACP. אפליקציה שפורסמה יכולה להפעיל API של xAI ולהחזיק Secrets, ולכן בודקים הרשאות, חשיפת מידע, עלות API וקלט עוין. ״ללא קוד״ מתאר את חוויית המשתמש; מאחורי הקלעים עדיין נוצר קוד שדורש QA.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -325,7 +333,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===26,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===27,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
