@@ -303,6 +303,38 @@ const DEFAULT_TOPICS=[{
     {id:'injection-context-claim',title:'אין סף קסם של 60–70%',summary:'Context ארוך עלול לדלל הוראות, אך הסרטון מגזים',done:false,body:'בסרטון נטען שכאשר חלון ההקשר מלא ב־60–70% המודל נעשה פגיע יותר, ובקרבת 100% הוא ״טיפש״ ומתעלם מהגנות. אין סף אוניברסלי מוכח כזה: התנהגות תלויה במודל, במבנה ההוראות, במיקום התוכן ובמערכת ההרשאות. Context ארוך יכול לפגוע בזכירה ובהיצמדות, אך הוא אינו עוקף אוטומטית מסנני בטיחות.'},
     {id:'injection-defense',title:'הגנה ארכיטקטונית',summary:'Least Privilege, אישור פעולה ובידוד מידע',done:false,body:'מתייחסים לכל תוכן חיצוני כלא מהימן, מסננים קלט ופלט ומאמתים כל Tool Call מול כוונת המשתמש המקורית. סוכן שקורא תוכן עוין נשאר ללא סודות וללא יכולת כתיבה; פעולות כסף, הודעה, פרסום, מחיקה ושינוי ייצור דורשות אישור. משתמשים ב־Sandbox, הרשאות Scope צרות, Allowlist, לוגים ו־Readback. בדיקות תקיפה מבצעים רק במערכת שבבעלותנו או בהרשאה מפורשת.'}
   ]
+},{
+  id:'ai-agent-vaults',title:'ספריות תבניות לסוכני AI',priority:'חשוב',source_url:'https://www.instagram.com/p/DcW7WNuCBse/',website_url:'https://github.com/FlorianBruniaux/claude-code-ultimate-guide',
+  summary:'מהן "מחסניות שיבוט" של סוכנים, ואיך להשתמש בתבניות מוכנות בלי לרוץ על קוד לא מוכר.',
+  chapters:[
+    {id:'vault-what',title:'מהי מחסנית תבניות',summary:'אוסף הגדרות, פרומפטים ודמויות מוכנים',done:false,body:'מחסנית (vault) היא אוסף של הגדרות סוכן, פרומפטים, דמויות ו־Hooks מוכנים מראש שאפשר להעתיק ולפרוס. המספר "275" שמופיע בפוסטים מקורו במדריך claude-code-ultimate-guide הפתוח, שמכיל 275 תבניות מסומנות עם הסבר למה כל דפוס עובד.'},
+    {id:'vault-how',title:'שימוש בטוח',summary:'קראו הכל לפני הריצה',done:false,body:'מעתיקים, קוראים כל קובץ, מבינים מה הוא עושה — ורק אז מריצים. לא מריצים קובץ agent config שהורד מקישור אנונימי בלי לקרוא אותו שורה שורה. מתחילים בתבנית אחת, בודקים התנהגות, ואז מרחיבים.'},
+    {id:'vault-pitfalls',title:'סכנות',summary:'תבניות עלולות להכיל הוראות מרושעות',done:false,body:'תבנית לא מוכרת עלולה להכיל פקודות הרסניות או הזרקת Prompt (ראו מדריך ההגנה מהזרקה). עדיפים מקורות פתוחים ומזוהים: GitHub עם כוכבים, קהילה פעילה, וגיבוי לפני כל שינוי בסביבת העבודה.'}
+  ]
+},{
+  id:'cybersecurity-free',title:'10 פלטפורמות חינמיות ללמידת סייבר',priority:'חשוב',source_url:'https://www.instagram.com/p/DcVaXYoSmuI/',website_url:'https://tryhackme.com',
+  summary:'רשימת אתרים חינמיים ללימוד סייבר, האקינג אתי, רשתות ו־CTF — תרגול במעבדות חוקיות בלבד.',
+  chapters:[
+    {id:'cyber-list',title:'הרשימה',summary:'עשר פלטפורמות לתחילת דרך',done:false,body:'TryHackMe, Cisco Networking Academy, Hack The Box, Blue Team Labs Online, OverTheWire (Bandit), Cybrary, SecurityTube, PicoCTF, Google Cybersecurity Certificate, ו־Null Byte. מתחילים ב־TryHackMe או ב־Cisco לבניית יסודות הדרגתית.'},
+    {id:'cyber-practice',title:'תרגול ולא רק צפייה',summary:'CTF ומכונות תרגול מקבעים',done:false,body:'הידע נשאר כשפותרים אתגרים: מכונות תרגול, תרחישי Blue/Red Team ופרויקטים קטנים. צפייה בטוטוריאלים בלי ידיים על מקלדת לא בונה כישור.'},
+    {id:'cyber-legal',title:'חוקיות',summary:'רק מערכות בבעלותכם או מורשות',done:false,body:'מתרגלים אך ורק על מערכות שאתם בבעלותכם או מעבדות מורשות (HTB, TryHackMe וכדומה). פעולה על מערכת של אחר ללא אישור היא עבירה פלילית, גם אם הכוונה לימודית.'}
+  ]
+},{
+  id:'opsec-privacy',title:'OPSEC ופרטיות בסיסית',priority:'חשוב',source_url:'https://www.instagram.com/p/Dccu3gSipcg/',website_url:'https://ssd.eff.org',
+  summary:'עקרונות יסוד באנונימיות, הפחתת טביעת רשת ו־OSINT — ולמה "400 כלים ב־DM" הוא פיתיון.',
+  chapters:[
+    {id:'opsec-what',title:'מהי OPSEC',summary:'ניהול חשיפה מכוון',done:false,body:'OPSEC = צמצום מה אתם חושפים, למי, ואיך. דפדפן מבודד, DNS פרטי, מחיקת מטא־דאטה מקבצים, ורשת נפרדת לפעילות רגישה. המטרה: להקטין את מה שניתן לקשר אליכם.'},
+    {id:'opsec-tools',title:'כלים ואחריות',summary:'לומדים ממקור מובנה',done:false,body:'כלים מוכרים: Tails, Tor, מנהל סיסמאות, אימות דו־שלבי. לומדים מאתרים מובנים כמו EFF Surveillance Self-Defense — לא מצרורות כלים אקראיות שהורדתם מקישור.'},
+    {id:'opsec-bait',title:'הפיתיון ב־"Comment HACKER"',summary:'ליד־ג׳נ, לא דרך ללמוד',done:false,body:'פוסטים שמבטיחים מאות כלים תמורת הגבה הם איסוף עוקבים/אימייל (lead-gen). לא לומדים אבטחה מצרור לא מסווג; מתחילים במעבדות חוקיות ובמדריכים מובנים.'}
+  ]
+},{
+  id:'unlinked-mentions',title:'הזכרות מותג ללא קישור (קישורים חוזרים)',priority:'שימושי',source_url:'https://www.instagram.com/p/DcdX4wjGcYZ/',website_url:'https://github.com/RankTank-Free-SEO-Tools/unlinked-brand-mentions-finder',
+  summary:'איך למצוא מקומות שמזכירים את המותג שלכם בלי קישור, ולהפוך אותם לקישור חוזר בעל ערך SEO.',
+  chapters:[
+    {id:'mentions-what',title:'מהן הזכרות לא מקושרות',summary:'הכרה בלי קישור',done:false,body:'אתר או פוסט שמזכיר את המותג במילים אבל לא מקשר אליו. ההכרה כבר קיימת והעבודה העריכתית נעשתה — חסר רק הקישור, ולכן זו הזדמנות קלה יחסית.'},
+    {id:'mentions-tools',title:'כלים חינמיים',summary:'סריקה אוטומטית או ידנית',done:false,body:'RankTank (Google Sheet שבודק תוצאות חיפוש), AllEasySEO (מייצר שאילתות), ו־replysocial (סריקת X). שאילתת Google ידנית: "brand" -site:brand.com — כל תוצאה שמזכירה בלי לקשר היא מועמדת.'},
+    {id:'mentions-outreach',title:'איך הופכים לקישור',summary:'פנייה קצרה ומנומסת',done:false,body:'פונים למנהל האתר, מצטטים את הפוסט המדויק, ומבקשים קישור לקוראים. ה־ROI גבוה כי הקשר כבר נוצר; פנייה טובה היא קצרה, מתחילה בהערכה, ולא בספאם.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -349,7 +381,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===29,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===33,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
