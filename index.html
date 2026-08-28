@@ -335,6 +335,14 @@ const DEFAULT_TOPICS=[{
     {id:'mentions-tools',title:'כלים חינמיים',summary:'סריקה אוטומטית או ידנית',done:false,body:'RankTank (Google Sheet שבודק תוצאות חיפוש), AllEasySEO (מייצר שאילתות), ו־replysocial (סריקת X). שאילתת Google ידנית: "brand" -site:brand.com — כל תוצאה שמזכירה בלי לקשר היא מועמדת.'},
     {id:'mentions-outreach',title:'איך הופכים לקישור',summary:'פנייה קצרה ומנומסת',done:false,body:'פונים למנהל האתר, מצטטים את הפוסט המדויק, ומבקשים קישור לקוראים. ה־ROI גבוה כי הקשר כבר נוצר; פנייה טובה היא קצרה, מתחילה בהערכה, ולא בספאם.'}
   ]
+},{
+  id:'osint',title:'OSINT — מודיעין ממקורות פתוחים',priority:'חשוב',source_url:'https://www.instagram.com/reel/DcQ0dv-hG23/',website_url:'https://osintframework.com',
+  summary:'איסוף מידע ממקורות זמינים לציבור — מסגרת כלים, כלי בלינגקט, ואתיקה/חוקיות.',
+  chapters:[
+    {id:'osint-what',title:'מהי OSINT',summary:'מידע ממקורות פתוחים',done:false,body:'OSINT = Open Source Intelligence: איסוף, ניתוח ואימות של מידע שזמין לכלל הציבור — רשתות חברתיות, רשומות, לוויינים, אתרים וארכיונים. משמשת חוקרים, עיתונאים, אנשי אבטחה וארגונים הומניטריים.'},
+    {id:'osint-tools',title:'מסגרות עבודה',summary:'OSINT Framework ובלינגקט',done:false,body:'OSINT Framework (osintframework.com) מאגד חינם מאות כלים מסודרים לפי תחום: דוא״ל, דומיינים, IP, רשתות חברתיות, מטא־דאטה וחיפוש אנשים. Bellingcat Online Investigation Toolkit (bellingcat.gitbook.io/toolkit) מוסיף הסברים, דוגמאות שימוש ואתיקה לכל כלי. התחלה משם חוסכת זמן.'},
+    {id:'osint-ethics',title:'אתיקה וחוקיות',summary:'מותר לציבור — לא מתחת לאף ראדאר',done:false,body:'OSINT עוסקת במידע פומבי בלבד. לא עוקפים הגנות, לא פורצים, לא משתמשים בפישינג או בהונאה. מנתקים זהות חוקרת (OPSEC), מפעילים כלי אימות לתמונות וסרטונים, ושומרים על פרטיות — גם בחקירה לגיטימית.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -381,7 +389,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===33,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===34,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
