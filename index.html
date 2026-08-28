@@ -343,6 +343,14 @@ const DEFAULT_TOPICS=[{
     {id:'osint-tools',title:'מסגרות עבודה',summary:'OSINT Framework ובלינגקט',done:false,body:'OSINT Framework (osintframework.com) מאגד חינם מאות כלים מסודרים לפי תחום: דוא״ל, דומיינים, IP, רשתות חברתיות, מטא־דאטה וחיפוש אנשים. Bellingcat Online Investigation Toolkit (bellingcat.gitbook.io/toolkit) מוסיף הסברים, דוגמאות שימוש ואתיקה לכל כלי. התחלה משם חוסכת זמן.'},
     {id:'osint-ethics',title:'אתיקה וחוקיות',summary:'מותר לציבור — לא מתחת לאף ראדאר',done:false,body:'OSINT עוסקת במידע פומבי בלבד. לא עוקפים הגנות, לא פורצים, לא משתמשים בפישינג או בהונאה. מנתקים זהות חוקרת (OPSEC), מפעילים כלי אימות לתמונות וסרטונים, ושומרים על פרטיות — גם בחקירה לגיטימית.'}
   ]
+},{
+  id:'ai-marketing',title:'AI בשיווק — היכולת והמגבלה',priority:'חשוב',source_url:'https://www.instagram.com/reel/DcLEz26pg9P/',website_url:'https://claude.com/plugins/marketing',
+  summary:'מה ה-AI עושה טוב בשיווק, למה הוא לא מחליף חשיבה אסטרטגית מקורית, והכלל בונים איתו — לא במקום אנשים.',
+  chapters:[
+    {id:'ai-marketing-what',title:'מה ה-AI עושה טוב',summary:'תוכן, תכנון וניתוח',done:false,body:'ה-AI מצוין בייצור טיוטות: פוסטים, ניוזלטרים, דפי נחיתה, סיכומי ביצועים ותכניות קמפיין. כלי שיווק רשמיים (כמו התוסף Marketing של Claude) מציעים דראפט תוכן, תכנון קמפיין, בדיקת קול מותג, בריף מתחרים ודוחות SEO. הוא מואץ ביצוע — לא מחליף שיקול דעת.'},
+    {id:'ai-marketing-limit',title:'המגבלה האמיתית',summary:'אין יצירתיות מקורית',done:false,body:'מודלי שפה מרכיבים מתבניות שלמדו — הם לא ממציאים זווית חדשה או אסטרטגיה מבדלת. כשצוות תלוי בהם לחלוטין, התוצאה דומה לכל מתחרה שעושה אותו דבר: עייפות תוכן והומוגניות. החלטה מה לשווק, למי ולמה נשארת אנושית.'},
+    {id:'ai-marketing-rule',title:'הכלל',summary:'בונים איתו, לא במקומו',done:false,body:'משתמשים ב-AI להאצת עבודה, לא כמקור לרעיונות ייחודיים. בני אדם מבינים בני אדם — הקהל הוא אנשים, והם כבר עייפים מתוכן מיוצר-כולו-על-ידי-AI. קול מותג, אימות עובדות והחלטה אסטרטגית נשארים אצלכם; ה-AI רק מריץ מהר יותר.'}
+  ]
 }];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -389,7 +397,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===34,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===35,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
