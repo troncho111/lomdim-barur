@@ -521,6 +521,27 @@ const DEFAULT_TOPICS=[{
     {id:'hbas-uv',title:`uv — ניהול Python מהיר`,summary:`פרויקטים, תלויות, כלים וגרסאות Python`,done:false,source_url:'https://github.com/astral-sh/uv',body:`uv של Astral הוא מנהל חבילות ופרויקטים ל־Python שנכתב ב־Rust. הוא תומך ב־macOS, Linux ו־Windows, כולל סביבות, lockfiles, התקנת כלים וניהול גרסאות Python, ויכול להחליף כמה כלים נפרדים.\n\nאצלנו מאגר Python משותף מפעיל אוטומציות חיות, ולכן לא מחליפים את סביבת המערכת או מתקינים חבילות גלובליות ללא צילום pip freeze, dry-run ובדיקה פרויקטלית. הערך הטוב ביותר הוא בפרויקט חדש ומבודד.`},
     {id:'hbas-verdict',title:`מה באמת כדאי לנו`,summary:`שלושה שימושיים עכשיו, היתר לפי צורך`,done:false,source_url:'https://brew.sh/',body:`הסרטון מציג “עשר התקנות Homebrew”, אבל זו רשימת המלצות ולא stack שחייבים להתקין: agent-browser מותקן רשמית דרך npm, כמה כלים הם macOS בלבד, וחלקם חופפים למה שכבר קיים אצלנו.\n\nהכי רלוונטיים לבדיקה נקודתית: llmfit לפני בחירת מודל מקומי, RTK כשפלטי shell באמת מנפחים context, ו־uv בפרויקט Python מבודד. Handy שימושי אם הכתבה מקומית בעברית עובדת טוב. כל היתר מוסיפים רק כאשר יש כאב מדיד שהם פותרים; צפייה ב־Reel אינה אישור התקנה, OAuth או מסירת סודות.`}
   ]
+},
+{
+  id:'saas-ai-valuation-reset',title:`SaaS אחרי בועת 2021 ומהפכת ה־AI`,priority:'חשוב',source_url:'https://www.instagram.com/reel/DdLXYVAg1Fr/',website_url:'https://investors.bendingspoons.com/newsroom/bending-spoons-agrees-to-acquire-miro',
+  summary:`עסקאות Miro ו־Airtable מלמדות שמכפיל ARR לבדו כבר לא מספיק — אבל הן אינן הוכחה ש־AI לבדו הרג את מודל ה־SaaS.`,
+  chapters:[
+    {id:'saas-reset-miro',title:`Miro — המספרים האמיתיים`,summary:`עסקה חתומה, לא מכירה שהושלמה`,done:false,body:`ב־10 בספטמבר 2026 חתמה Bending Spoons על הסכם לרכישת Miro לפי שווי פעילות (Enterprise Value) של 1.355 מיליארד דולר. יחד עם המזומן נטו של Miro מתקבל שווי הון מוערך של כ־1.79 מיליארד דולר. העסקה עדיין כפופה לאישורים וצפויה להיסגר ברבעון הרביעי של 2026.
+
+Miro דיווחה על כ־600 מיליון דולר ARR, כמעט 90% מהם מעסקים וארגונים. לכן היחס EV/ARR הוא בערך 2.3 — חישוב שימושי, אבל ARR אינו הכנסה חשבונאית, רווח או תזרים.`,source_url:'https://investors.bendingspoons.com/newsroom/bending-spoons-agrees-to-acquire-miro'},
+    {id:'saas-reset-airtable',title:`Airtable — עסקת השוואה`,summary:`2.7× ARR, והעסקה כבר הושלמה`,done:false,body:`Bending Spoons הודיעה באוגוסט 2026 על רכישת Airtable לפי EV של 1.285 מיליארד דולר, מול כ־480 מיליון דולר ARR — בערך 2.7×. בניגוד ל־Miro, רכישת Airtable הושלמה ב־4 בספטמבר 2026.
+
+הנתונים מחזקים את תמונת דחיסת המכפילים בחברות SaaS ותיקות, אך שתי עסקאות של אותו רוכש אינן מדגם שמוכיח לבדו שינוי בכל השוק.`,source_url:'https://investors.bendingspoons.com/newsroom/bending-spoons-completes-acquisition-of-airtable'},
+    {id:'saas-reset-apples',title:`לא משווים שווי לשווי בלי לפרק`,summary:`Funding valuation, Equity Value ו־Enterprise Value אינם אותו מספר`,done:false,body:`השווי של 17.5 מיליארד דולר שיוחס ל־Miro ב־2022 היה שווי מסבב גיוס בתקופת ריבית נמוכה. מחיר העסקה ב־2026 מוצג גם כ־EV של 1.355 מיליארד וגם כ־Equity Value של כ־1.79 מיליארד. בחירה במספר הנמוך כדי להכריז על נפילה של יותר מ־90% מערבבת מדדים שונים.
+
+השוואה הוגנת בודקת תאריך, סוג שווי, מזומן וחוב, קצב צמיחה, רווחיות, תזרים ושיעורי ריבית — לא רק כותרת לפני ואחרי.`,source_url:'https://miro.com/blog/miro-bending-spoons/'},
+    {id:'saas-reset-ai',title:`האם AI הרג את SaaS?`,summary:`השערה סבירה — לא סיבתיות שהעסקאות הוכיחו`,done:false,body:`ה־Reel טוען שסוכני AI מאפשרים לארגונים להסתפק בפחות כלים ורישיונות. זה סיכון אמיתי במיוחד למוצר אופקי ופשוט שמתומחר לפי משתמש, אבל הודעות העסקה אינן אומרות ש־AI לבדו גרם למחיר. גם סוף בועת 2021, ריבית, האטת צמיחה, נזילות ומבנה בעלי המניות משפיעים.
+
+ההבחנה החשובה: AI דוחס תכונות שקל להעתיק; הוא פחות מחליף מהר נתונים קנייניים, אינטגרציות עמוקות, אבטחה, רגולציה ותהליך קריטי שמוטמע בארגון.`,source_url:'https://aventis-advisors.com/saas-valuation-multiples/'},
+    {id:'saas-reset-scorecard',title:`מה ללמוד מזה לעסק שלנו`,summary:`לא לקנות עוד SaaS בלי לבדוק אם הוא נכס או שכבה מיותרת`,done:false,body:`לפני רכישה או בנייה של כלי בודקים חמישה דברים: האם הוא מחזיק נתונים ייחודיים, האם הוא יושב בזרימה יומיומית קריטית, מה עלות המעבר, האם התמחור לפי משתמש יישחק מול סוכנים, והאם אפשר להוכיח צמיחה ורווח ולא רק ARR.
+
+אצל TikTik היתרון צריך להיות בנתונים, ספקים, תמחור, תפעול והפצה — לא בעוד ממשק גנרי. AI Office יכול לצמצם כלים חופפים, אבל לא מחליפים מערכת חיה לפני הוכחת איכות, אבטחה, עלות ונתיב חזרה.`,source_url:'https://techcrunch.com/2026/09/10/bending-spoons-to-buy-collaboration-tools-maker-miro-for-1-36b-90-less-than-its-2022-valuation/'}
+  ]
 }
 ];
 let topics=loadTopics();
@@ -568,7 +589,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===53,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===54,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
