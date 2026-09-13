@@ -576,6 +576,23 @@ Miro דיווחה על כ־600 מיליון דולר ARR, כמעט 90% מהם מ
     {id:'ccs-red-flags',title:`דגל אדום: הסתרת השם כדי לעבור חסימה`,summary:`אם ספק מלמד לעקוף Guardrail — לא מחברים`,done:false,source_url:'https://www.eromify.com/mcp',body:`בדף הרשמי שלו Eromify ממליץ לקרוא למחבר “Creator Studio” כי לדבריו Claude פחות צפוי לחסום את השם, ואף מציע לא לומר “Eromify” בשיחה. זו אינה רק בחירת מיתוג; זו הנחיה לעמעם את זהות הכלי כדי להפחית אכיפת Guardrail.\n\nספק שמבקש להסתיר את שמו מקשה על ביקורת, על אישור מודע ועל זיהוי הפעולה ביומן. לכן לא מחברים את השרת הזה ולא מנסים לעקוף את מדיניות Claude. גם דמות בדיונית חייבת לעמוד בתנאי השירות; דמות המבוססת על אדם אמיתי דורשת רשות וזכויות שימוש.`},
     {id:'ccs-gate',title:`שער החיבור הבטוח`,summary:`צורך עסקי, מקור מהימן, הרשאה מינימלית ו־Readback`,done:false,source_url:'https://docs.anthropic.com/en/docs/agents-and-tools/remote-mcp-servers',body:`מחבר חדש נכנס רק אם יש צורך שלא מכוסה בכלים שכבר קיימים. בודקים בעלות על הדומיין, מדיניות פרטיות, מוניטין, רשימת כלים והרשאות OAuth; מתחילים בחשבון ניסוי בלי מידע רגיש, כסף או פרסום חי. מפעילים רק כלים נחוצים ולא בוחרים “Allow always” לפני שההתנהגות הוכחה.\n\nלפעולות כתיבה מגדירים אישור אנושי, מגבלת הוצאה ו־Readback לאחר כל שינוי. אם הכלי מתנהג אחרת, מבקש Scope מיותר או משנה תנאים — מנתקים גם ב־Claude וגם בשירות. במקרה הזה דילגתי על ההתקנה: אין צורך עסקי שמצדיק את הסיכון, והכלים הקיימים כבר מכסים יצירת תוכן בטוחה יותר.`}
   ]
+},{
+  id:'chatgpt-coupon-verification',title:`קופונים עם ChatGPT — למצוא זה לא לאמת`,priority:'שימושי',source_url:'https://www.instagram.com/reel/DdJmrAUMkqZ/',website_url:'https://help.openai.com/en/articles/12911370-using-shopping-research-in-chatgpt',
+  summary:`ChatGPT יכול לאתר מבצעים, אבל קוד הוא רק מועמד עד שהקופה של החנות מחילה אותו ומציגה סכום חדש.`,
+  chapters:[
+    {id:'coupon-reel',title:`מה הניסוי הוכיח`,summary:`תשובה בטוחה נשברה מול קופה אמיתית`,done:false,body:`ה־Reel מדביק קישור מוצר ומבקש מ־ChatGPT למצוא קופונים. התשובה טוענת שנמצא קוד ציבורי שעובד על המוצר, לצד הנחות סטודנט וניוזלטר. כשהקודים נבדקים בקופת Levi’s, הטבלה מציגה Rejected לכולם, חיסכון של €0 וסכום שנשאר €109.95.
+
+המסקנה המצומצמת: הקודים שנבדקו לא עבדו למוצר, למדינה, לחשבון ולמועד המצולמים. זו אינה הוכחה שאין קופונים אחרים; זו הוכחה שתשובת AI אינה אימות קופה.`},
+    {id:'coupon-why',title:`למה קופון “נכון” נדחה`,summary:`מדינה, מוצר, חשבון, תאריך וכפל מבצעים`,done:false,source_url:'https://help.levi.com/hc/en-us/articles/10872016647821-Levi-s-Promotional-Offers',body:`קוד יכול להיות אמיתי ועדיין לא להתאים לסל: מבצעים מוגבלים למדינה או אתר מסוים, ללקוחות חדשים או חברי מועדון, למוצרים משתתפים ולתקופת זמן; לעיתים הוא אישי, חד־פעמי, רגיש לאותיות ולמקפים או אינו ניתן לשילוב.
+
+Levi’s עצמה מציינת שרק קוד אחד מתקבל בהזמנה, שמוצרים מוזלים מסוימים מוחרגים ושצריך להזין את הקוד בדיוק. לכן דף קופונים או ציטוט ברשת אינם אומרים שהסל הנוכחי זכאי.`},
+    {id:'coupon-ai-limit',title:`מה ChatGPT יודע — ומה לא`,summary:`חיפוש עדכני עוזר, אך המחיר וההנחה עלולים להשתנות`,done:false,source_url:'https://help.openai.com/en/articles/8313428-chatgpt-accuracy-and-limitations',body:`ChatGPT עם Search יכול לאסוף מקורות עדכניים ולצטט אותם, אבל הוא עדיין עלול להחזיר מידע שגוי או מיושן, להישמע בטוח מדי או לא לגשת לאתר שחוסם אוטומציה. בלי מקור וקופה אין בסיס למילים “עובד בוודאות”.
+
+גם OpenAI מזהירה שמחירים, מלאי והנחות משתנים ושאתר הקמעונאי הוא הסמכות הסופית. משתמשים ב־AI כדי לגלות מועמדים, לא כדי לקבוע זכאות.`},
+    {id:'coupon-workflow',title:`המסלול הקצר שבאמת עובד`,summary:`מקור רשמי → תנאים → קופה → סכום חדש`,done:false,source_url:'https://help.openai.com/en/articles/12911370-using-shopping-research-in-chatgpt',body:`מבקשים מ־ChatGPT לחפש רק באתר הרשמי של החנות ולצרף מקור, תאריך, מדינה, תנאי זכאות והחרגות לכל הצעה. זורקים קוד שאין לו מקור רשמי או שמיועד לחשבון אחר.
+
+מוסיפים את המוצר המדויק לסל, מזינים קוד אחד ובודקים שהקופה מציגה Discount חי ושהסכום הכולל ירד לפני תשלום. אם נשאר €0 או מתקבלת דחייה — הקוד לא עובד לסל הזה. לא משלימים רכישה רק מפני שהמודל אמר שההנחה תקפה.`}
+  ]
 }
 ];
 let topics=loadTopics();
@@ -623,7 +640,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===57,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===58,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
