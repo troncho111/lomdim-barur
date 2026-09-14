@@ -126,7 +126,12 @@ TOOLS — עשרה חיבורים וכלי עבודה: multica-ai/multica — ht
 
 TOKEN / CONTEXT — שבעה כלי צמצום ונראות: x1xhlol/system-prompts-and-models-of-ai-tools — https://github.com/x1xhlol/system-prompts-and-models-of-ai-tools ; shanraisshan/claude-code-best-practice — https://github.com/shanraisshan/claude-code-best-practice ; openai/codex-plugin-cc — https://github.com/openai/codex-plugin-cc ; jarrodwatts/claude-hud — https://github.com/jarrodwatts/claude-hud ; rtk-ai/rtk — https://github.com/rtk-ai/rtk ; headroomlabs-ai/headroom — https://github.com/headroomlabs-ai/headroom ; JuliusBrussee/caveman — https://github.com/JuliusBrussee/caveman .
 
-אצלנו כבר קיימים Superpowers, ‏Ponytail, ‏Graphify, ‏UI/UX Pro Max ו־Caveman, והמדריך כולל פרקים נפרדים ל־Matt Pocock ול־Addy Osmani. לכן לא התקנתי את 40 המאגרים ולא יצרתי נושא כפול. לפני התקנה בוחרים כאב אחד, קוראים README, רישיון, Hooks ופקודות Shell, בודקים הרשאות ו־Telemetry, ומנסים מאגר אחד ב־Sandbox. כוכבים ורשימת “Top 40” אינם ביקורת אבטחה.`}
+אצלנו כבר קיימים Superpowers, ‏Ponytail, ‏Graphify, ‏UI/UX Pro Max ו־Caveman, והמדריך כולל פרקים נפרדים ל־Matt Pocock ול־Addy Osmani. לכן לא התקנתי את 40 המאגרים ולא יצרתי נושא כפול. לפני התקנה בוחרים כאב אחד, קוראים README, רישיון, Hooks ופקודות Shell, בודקים הרשאות ו־Telemetry, ומנסים מאגר אחד ב־Sandbox. כוכבים ורשימת “Top 40” אינם ביקורת אבטחה.`},
+    {id:'sp-astra-instruction-audit',title:`ניקוי Skills ו־AGENTS.md למודלים חדשים`,summary:`פחות הוראות גורפות, יותר טריגרים צרים והגדרת סיום`,done:false,source_url:'https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra',body:`OpenAI ממליצה לבדוק מחדש הוראות שנצברו עבור מודלים ישנים. תיאור Skill צריך להיות קצר ולציין בדיוק מתי הוא חל; כשיש כמה תהליכים, קובץ השורש משמש Router ומפנה למסמכים רק לפי הצורך. הוראות סותרות או רחבות מדי גורמות לטעינת הקשר לא רלוונטי ועלולות לפגוע בבחירת ה־Skill.
+
+גם AGENTS.md צריך להיות מותנה במשימה. במקום “לפני כל שינוי קרא architecture.md, database.md ו־deployment.md”, כותבים מתי לקרוא כל מסמך. לא מסירים מגבלות אבטחה, הרשאות או מניעת אובדן מידע; מנקים כפילויות וטקסים שאין להם הצדקה. לביצוע משימה ארוכה מגדירים מראש Done: להריץ, לבדוק את התוצאה ולתקן כשל, במקום לעצור אוטומטית אחרי המימוש הראשון.
+
+יישום בטוח: שומרים גיבוי, מבקשים מהמודל להצביע על סתירות וכפילויות, מאשרים את ה־diff, ומשווים אותה משימה לפני ואחרי. המאמר הרשמי עוסק ב־GPT-6 Astra וב־Codex. ההשלכה על Claude היא עיקרון כללי של תחזוקת הוראות, לא ממצא רשמי על Claude או על “Fable”. מקור ה־Reel: https://www.instagram.com/reel/DdQ_CicA9Gs/`}
   ]
 },{
   id:'opensage',title:'OpenSage — סוכן שיוצר סוכנים וכלים',priority:'ללמוד',source_url:'https://github.com/opensage-agent/opensage-adk',
