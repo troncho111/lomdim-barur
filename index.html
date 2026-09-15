@@ -131,7 +131,14 @@ TOKEN / CONTEXT — שבעה כלי צמצום ונראות: x1xhlol/system-prom
 
 גם AGENTS.md צריך להיות מותנה במשימה. במקום “לפני כל שינוי קרא architecture.md, database.md ו־deployment.md”, כותבים מתי לקרוא כל מסמך. לא מסירים מגבלות אבטחה, הרשאות או מניעת אובדן מידע; מנקים כפילויות וטקסים שאין להם הצדקה. לביצוע משימה ארוכה מגדירים מראש Done: להריץ, לבדוק את התוצאה ולתקן כשל, במקום לעצור אוטומטית אחרי המימוש הראשון.
 
-יישום בטוח: שומרים גיבוי, מבקשים מהמודל להצביע על סתירות וכפילויות, מאשרים את ה־diff, ומשווים אותה משימה לפני ואחרי. המאמר הרשמי עוסק ב־GPT-6 Astra וב־Codex. ההשלכה על Claude היא עיקרון כללי של תחזוקת הוראות, לא ממצא רשמי על Claude או על “Fable”. מקור ה־Reel: https://www.instagram.com/reel/DdQ_CicA9Gs/`}
+יישום בטוח: שומרים גיבוי, מבקשים מהמודל להצביע על סתירות וכפילויות, מאשרים את ה־diff, ומשווים אותה משימה לפני ואחרי. המאמר הרשמי עוסק ב־GPT-6 Astra וב־Codex. ההשלכה על Claude היא עיקרון כללי של תחזוקת הוראות, לא ממצא רשמי על Claude או על “Fable”. מקור ה־Reel: https://www.instagram.com/reel/DdQ_CicA9Gs/`},
+    {id:'sp-claude-video-watch',title:`Claude Video /watch — ראייה ותמלול לווידאו`,summary:`yt-dlp, ‏ffmpeg ותמלול הופכים URL או קובץ לפריימים והקשר`,done:false,source_url:'https://github.com/bradautomates/claude-video',body:`הכלי שב־Reel הוא bradautomates/claude-video, תוסף ו־Skill ברישיון MIT. בבדיקה מול GitHub הוא אינו Archived ויש לו 17,209 כוכבים — יותר מהטענה “כמעט 15,000” שבסרטון. הוא אינו גורם ל־Claude לצפות בכל פריים: הפקודה /watch מורידה בעזרת yt-dlp, מוציאה ב־ffmpeg פריימים לפי keyframes או שינויי סצנה, מסירה כפילויות ומצרפת transcript עם חותמות זמן. כתוביות מקור נלקחות בחינם; כשאין כתוביות, אפשר לשלוח אודיו ל־Groq Whisper או ל־OpenAI Whisper.
+
+שימוש טוב: ניתוח hook בעשר השניות הראשונות, סיכום הדרכה, זיהוי תקלה מהקלטת מסך והשוואת מבנה של סרטון מתחרה בלי להעתיק אותו. ברירת המחדל balanced מוגבלת ל־100 פריימים; מעל כעשר דקות הכיסוי נהיה דליל ולכן עדיף לציין start/end. פריימים רבים שורפים context, ותמלול לבדו אינו מוכיח מה הוצג על המסך.
+
+פרטיות: וידאו ופריימים נכתבים לתיקייה זמנית; כאשר אין כתוביות ורכיב Whisper פעיל, האודיו יוצא ל־Groq או OpenAI. אין תמיכה מובנית ב־cookies או בתוכן פרטי, ושימוש בחומר של מתחרה עדיין כפוף לזכויות יוצרים ולתנאי הפלטפורמה. URL ממקור לא אמין צריך להיחשב קלט לא אמין, במיוחד בסוכן שמופעל עבור משתמשים חיצוניים.
+
+לא התקנתי את התוסף: אצלנו כבר קיים אותו מסלול — yt-dlp, ‏ffmpeg, ‏faster-whisper מקומי וניתוח vision — והוא זה שעיבד גם את ה־Reel הזה בלי לשלוח אודיו לענן. אם בעתיד נרצה את /watch דווקא בתוך Claude Code, ההתקנה הרשמית היא /plugin marketplace add bradautomates/claude-video ואז /plugin install watch@claude-video; מתקינים רק אז, אחרי review וללא מפתח Whisper אם תמלול מקומי מספיק. מקור ה־Reel: https://www.instagram.com/reel/DdRbB8-uEii/`}
   ]
 },{
   id:'opensage',title:'OpenSage — סוכן שיוצר סוכנים וכלים',priority:'ללמוד',source_url:'https://github.com/opensage-agent/opensage-adk',
