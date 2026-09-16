@@ -765,6 +765,20 @@ Seated calf raise — ‏3×15
   ]
 }
 
+,{
+  id:'deepseek-harness',
+  title:'DeepSeek Harness (dsh) — סוכן בקוד פתוח',
+  priority:'שימושי',
+  source_url:'https://github.com/deepseek-ai/deepseek-harness',
+  website_url:'https://deepseek-harness.github.io/deepseek-harness/',
+  summary:'Harness רשמי של DeepSeek AI (MIT, developer preview): סוכן עם ארכיטקטורת everything-is-a-plugin. ברירת מחדל DeepSeek; אפשר OpenRouter או מודל מקומי. לא מתקינים במדריך.',
+  chapters:[
+    {id:'dsh-what',title:'מה זה',summary:'dsh מול Claude/GPT harness',done:false,body:`DeepSeek Harness (dsh) הוא agent harness רשמי של DeepSeek AI. ארכיטקטורה: everything is a plugin, מעל Cordis.\n\nמאגר: https://github.com/deepseek-ai/deepseek-harness (MIT). דוקס: https://deepseek-harness.github.io/deepseek-harness/\n\nהרצה מוצהרת ב-README: npx @deepseek-ai/dsh web → UI ב-http://127.0.0.1:3080. או clone + pnpm. יש גם Python SDK (deepseek-harness-sdk) ל-JSON-RPC.\n\nברירת מחדל: ספק deepseek-official (DEEPSEEK_API_KEY). אפשר adapter אחר (pi-ai/OpenRouter) או endpoint מקומי תואם OpenAI (DEEPSEEK_BASE_URL) — כולל מודל מקומי כמו Qwen, כפי שה-Reel טוען. זה דורש הרצה נפרדת של השרת המקומי, לא קסם מובנה.\n\nמקור: https://www.instagram.com/reel/DdXV5X8P2d1/`,source_url:'https://github.com/deepseek-ai/deepseek-harness'},
+    {id:'dsh-fit',title:'התאמה לתחנה',summary:'מתי זה רלוונטי מול Hermes/Codex',done:false,body:`רלוונטי אם רוצים harness קוד-פתוח עם מודלי DeepSeek/Qwen במקום Claude/Codex, או לבדוק plugin ecosystem (נושא dsh-plugin).\n\nבתחנה כבר רצים Hermes, Claude Code ו-Codex. dsh לא מחליף אותם — זה runtime נוסף עם מודל אחר.\n\nלא מתקינים כאן. Developer preview: THERE WILL BE COMPATIBILITY-BREAKING CHANGES. לקרוא safety notice ב-repo לפני כל הרצה.`,source_url:'https://deepseek-harness.github.io/deepseek-harness/'},
+    {id:'dsh-limits',title:'מגבלות ואבטחה',summary:'preview, מפתחות, הרצת קוד',done:false,body:`• Preview — שבירות API צפויות.\n• מפתח DeepSeek/OpenRouter נשמר ב-env/credentials seam — לא בקובץ קטלוג.\n• הסוכן מריץ כלים/Bash על workspace שנותנים לו; לבודד תיקייה.\n• Python SDK בדוקס: Linux/macOS arm64; Windows לא ברשימת הפרי־req של ה-SDK.\n• npx מוריד חבילה מ-npm — לבדוק שם החבילה @deepseek-ai/dsh מול ה-README החי לפני הרצה.\n• ה-Reel מפשט \"similar to GPT and Claude\" — זה harness אחר, לא תאימות drop-in ל-Codex.`,source_url:'https://github.com/deepseek-ai/deepseek-harness'}
+  ]
+}
+
 ];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -811,7 +825,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===67,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===68,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
