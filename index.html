@@ -751,6 +751,20 @@ Seated calf raise — ‏3×15
   ]
 }
 
+,{
+  id:'t3-code',
+  title:'T3 Code — לוח בקרה לסוכני קוד',
+  priority:'שימושי',
+  source_url:'https://github.com/pingdotgg/t3code',
+  website_url:'https://t3.codes/',
+  summary:'ממשק קוד פתוח (MIT) לשליטה ב-Claude Code, Codex, Cursor, Grok ו-OpenCode על המנוי הקיים — לא מוכר טוקנים. ה-DM באינסטגרם הוא ליד-ג׳ן, לא מדריך.',
+  chapters:[
+    {id:'t3-what',title:'מה זה',summary:'control surface לסוכנים שכבר מותקנים',done:false,body:`T3 Code הוא \"agent harness control surface\": שרת Node/WebSocket שעוטף CLI-ים של ספקי סוכנים ומגיש לקוחות web, Electron ומובייל.\n\nמאגר רשמי: https://github.com/pingdotgg/t3code (~21k stars, MIT, pingdotgg). אתר: https://t3.codes/\n\nלא מוכר טוקנים. משתמש במנויים שכבר יש: Codex (codex login), Claude Code (claude auth login), Cursor (agent login), Grok Build (grok login), OpenCode (opencode auth login).\n\nכל משימה על branch משלה, כמה סוכנים במקביל, diff באפליקציה, PR בכפתור אחד, שליטה גם מהטלפון (אם השרת רץ אצלך).\n\nה-Reel ביקש להגיב T3 לקבלת מדריך — זה איסוף עוקבים. המקור הוא ה-README בגיטהאב, לא ה-DM.`,source_url:'https://github.com/pingdotgg/t3code'},
+    {id:'t3-fit',title:'התאמה לתחנה',summary:'מתי שווה ומתי Hermes/CLI מספיק',done:false,body:`רלוונטי אם רוצים GUI אחד לכמה סוכנים (Claude/Codex/Cursor) במקביל עם branches ו-PR, או שליטה מהנייד על מכונה שכבר רצה.\n\nבתחנה הזו כבר יש Hermes, Claude Code ו-Codex ב-CLI. T3 לא מחליף אותם — הוא שכבת UI/orchestration מעליהם.\n\nלא מתקינים כאן אוטומטית. אם מתקינים בעתיד: קודם ספק אחד מאומת ב-CLI, אחר כך האפליקציה. הרשאות קבצים/רשת של הסוכן נשארות אצל הספק, לא נעלמות בגלל GUI.`,source_url:'https://t3.codes/'},
+    {id:'t3-limits',title:'מגבלות',summary:'אבטחה, שליטה מרחוק, הייפ',done:false,body:`• שליטה מהטלפון דורשת שרת פתוח למכונה — זה משטח תקיפה; לא לחשוף לאינטרנט בלי auth.\n• Issues פתוחים רבים (~1.5k) — מוצר צעיר (נוצר 2026-02).\n• תמיכה לפי adapter; פיצ׳ר לא עובד בכל ספק.\n• MIT = מותר לעשות fork; זה לא אחריות תפעולית של pingdotgg על המכונה שלך.\n• לא מחברים חשבונות ולא מתקינים במדריך הזה.`,source_url:'https://github.com/pingdotgg/t3code'}
+  ]
+}
+
 ];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -797,7 +811,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===66,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===67,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
