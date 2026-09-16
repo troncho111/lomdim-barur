@@ -737,6 +737,20 @@ Seated calf raise — ‏3×15
   ]
 }
 
+,{
+  id:'openai-agents-api',
+  title:'OpenAI Agents API — ה-Harness של Codex',
+  priority:'חשוב',
+  source_url:'https://developers.openai.com/api/docs/guides/agents-api/overview',
+  website_url:'https://openai.com/index/introducing-the-agents-api/',
+  summary:'המודל הוא החלק הקל; הקשה הוא ה-harness — קונטקסט ארוך, כלים, subagents וסביבת הרצה. Agents API חושף את תשתית Codex כשירות מנוהל.',
+  chapters:[
+    {id:'oaa-what',title:'מה זה harness',summary:'המעטפת סביב המודל',done:false,body:`כשבונים agent, המודל הוא החלק הקל. הקשה הוא כל מה שסביבו: ניהול קונטקסט בסשנים ארוכים, טעינת כלים נכונים, תיאום subagents, ומקום בטוח להריץ קוד. המעטפת הזו נקראת harness.\n\nOpenAI Agents API (בטא ציבורית) נותן גישה ל-harness של Codex כ-API מנוהל: קריאה אחת עם משימה, מודל, כלים וסביבה. OpenAI מנהל session, orchestration, compaction ושחזור.\n\nארבעה מושגים: Agent (מודל+הוראות+כלים/MCP), Environment (sandbox או self-hosted), Session (מופע עמיד), Events/items (קלט/פלט).\n\nמקור ה-Reel: https://www.instagram.com/reel/DdO7agIoHDq/`,source_url:'https://developers.openai.com/api/docs/guides/agents-api/overview'},
+    {id:'oaa-fit',title:'מה מקבלים בפועל',summary:'יכולות, sandbox, ומתי להשתמש',done:false,body:`ה-harness המנוהל תומך ב: הרצת פקודות/קוד ב-sandbox, skills, MCP ו-tools, היגוי תוך כדי עבודה, סיכום עבר לניהול context, פיצול subtasks ו-subagents, והמשך session.\n\nסביבות: openai_hosted (Sandbox של OpenAI כמו Codex) או self_hosted (התשתית שלך + executor).\n\nמול חלופות OpenAI:\n• Agents API — harness מנוהל (Codex)\n• Agents SDK — הלולאה אצלך באפליקציה\n• Responses API — קריאות מודל ישירות\n\nרלוונטי לHermes/Codex/סוכנים: להבין מה OpenAI מוכרת כ-runtime שלם (לא רק tokens), ומתי עדיף harness מנוהל מול שליטה מקומית.\n\nQuickstart: https://developers.openai.com/api/docs/guides/agents-api/quickstart\nארכיטקטורה: https://developers.openai.com/api/docs/guides/agents-api/architecture`,source_url:'https://developers.openai.com/api/docs/guides/agents-api/architecture'},
+    {id:'oaa-limits',title:'מגבלות ואבטחה',summary:'בטא, נתונים, עלויות',done:false,body:`• Public beta — API/SDK והרשאות (api.agents.read/write + responses) משתנים.\n• Data residency כרגע US בלבד; אין ZDR ל-Agents API גם ב-self_hosted sandbox.\n• Self-hosted לא פוטר מאחריות על secrets, רשת פרטית, ו-lifecycle של ה-executor.\n• Tool search / programmatic tool calling / multi_agent — חוסכים tokens אבל דורשים עיצוב tools נכון.\n• לא מתקינים ולא מחברים כאן מפתחות; המדריך הוא ניווט לתיעוד הרשמי בלבד.\n• ה-Reel מפשט: \"First tokens, then tools, now the whole agent runtime\" — נכון ככיוון מוצר, לא כחובה להעביר את כל העבודה ל-OpenAI.`,source_url:'https://openai.com/index/introducing-the-agents-api/'}
+  ]
+}
+
 ];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -783,7 +797,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===65,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===66,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
