@@ -779,6 +779,22 @@ Seated calf raise — ‏3×15
   ]
 }
 
+,{
+  id:'four-coding-mcps',
+  title:'ארבעה MCP ל-Claude/Codex (Context7, Chrome, Supabase, Vercel)',
+  priority:'שימושי',
+  source_url:'https://github.com/upstash/context7',
+  website_url:'https://vercel.com/docs/agent-resources/vercel-mcp',
+  summary:'סטאק שיווקי של 4 MCP. מקורות רשמיים לכל אחד. Comment MCP = ליד-ג׳ן. Chrome DevTools כבר מכוסה בנושא נפרד. לא מתקינים כאן.',
+  chapters:[
+    {id:'mcp4-c7',title:'Context7',summary:'דוקס עדכניים ל-LLM',done:false,body:`Context7 (Upstash, MIT): מושך תיעוד ודוגמאות לפי גרסת ספרייה לתוך הקונטקסט. CLI+Skills או MCP ב-https://mcp.context7.com/mcp עם CONTEXT7_API_KEY.\nהתקנה מוצהרת: npx ctx7 setup. כלים: resolve-library-id, query-docs.\nהדוקס באינדקס הם community-contributed — אין אחריות לדיוק/אבטחה. הבקאנד לא בקוד הפתוח.\nרשמי: https://github.com/upstash/context7`,source_url:'https://github.com/upstash/context7'},
+    {id:'mcp4-chrome',title:'Chrome DevTools MCP',summary:'כבר יש מדריך נפרד',done:false,body:`שרת רשמי ChromeDevTools/chrome-devtools-mcp: שליטה/דיבוג ב-Chrome חי (Puppeteer). חושף תוכן הדפדפן ל-MCP — לא לגלוש רגיש. סטטיסטיקות ל-Google כברירת מחדל (opt-out: --no-usage-statistics).\nבתחנה כבר יש chrome-devtools ב-Hermes. מדריך מלא בקטלוג: id chrome-devtools-mcp.\nרשמי: https://github.com/ChromeDevTools/chrome-devtools-mcp`,source_url:'https://github.com/ChromeDevTools/chrome-devtools-mcp'},
+    {id:'mcp4-supabase',title:'Supabase MCP',summary:'DB חי — סיכון אבטחה',done:false,body:`שרת רשמי: https://mcp.supabase.com/mcp (לוקאלי: localhost:54321/mcp). OAuth לארגון. כלים: SQL, migrations, Edge Functions, ניהול פרויקטים.\nSupabase עצמם מזהירים: לא לחבר לפרודקשן; read_only=true ו-project_ref לצמצום; prompt injection מתוך שורות DB. לא לתת ללקוחות קצה.\nרשמי: https://supabase.com/docs/guides/getting-started/mcp`,source_url:'https://supabase.com/docs/guides/getting-started/mcp'},
+    {id:'mcp4-vercel',title:'Vercel MCP',summary:'גישה לפרויקטים — לא קסם דיפלוי',done:false,body:`Vercel MCP רשמי: https://mcp.vercel.com (OAuth). מגדירים עם vercel mcp או npx add-mcp. אפשר scope לפרויקט: https://mcp.vercel.com/<org>/<project>.\nזה גישה לחשבון Vercel מול הסוכן — לא \"deploy בלי לגעת בדשבורד\" בלי הרשאות ובלי review. לא מחברים כאן.\nרשמי: https://vercel.com/docs/agent-resources/vercel-mcp`,source_url:'https://vercel.com/docs/agent-resources/vercel-mcp'},
+    {id:'mcp4-limits',title:'הייפ ומגבלות',summary:'ה-DM והפער מול ship',done:false,body:`ה-Reel: \"Stop coding until you install these 4\" + Comment MCP — ליד-ג׳ן, לא חובה.\nארבעה MCP לא הופכים סוכן למוצר שיוצא לפרודקשן לבד. כל אחד דורש auth, הרשאות, וסקירת tool calls.\nלא מתקינים ולא מחברים במדריך. מקור: https://www.instagram.com/reel/DdW5lIwzWiS/`,source_url:'https://www.instagram.com/reel/DdW5lIwzWiS/'}
+  ]
+}
+
 ];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -825,7 +841,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===68,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===69,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
