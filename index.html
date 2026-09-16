@@ -809,6 +809,20 @@ Seated calf raise — ‏3×15
   ]
 }
 
+,{
+  id:'claude-code-five-plugins',
+  title:'חמישה תוספי Claude Code (רק מה שמאומת)',
+  priority:'שימושי',
+  source_url:'https://github.com/thedotmack/claude-mem',
+  website_url:'https://extraheadroom.com',
+  summary:'Reel עם Comment Claude = ליד-ג׳ן. מתוך החמישה: Claude-Mem ו-Headroom מאומתים במאגרים רשמיים. Omniroot, Claude Code Setup ו-TaskObserver לא נמצאו כפרויקט רשמי — לא מתקינים.',
+  chapters:[
+    {id:'cc5-mem',title:'Claude-Mem',summary:'זיכרון בין סשנים',done:false,body:`thedotmack/claude-mem, Apache-2.0. שומר תצפיות מסשן, דוחס, ומזריק לסשן הבא. Claude Code, Codex, Hermes, Copilot ועוד.\nהתקנה מוצהרת: npx claude-mem install או /plugin marketplace add thedotmack/claude-mem. Worker מקומי בפורט 37777. דורש Node 20, Bun, uv.\nלא מתקינים במדריך — הקבצים והווים נוגעים ב-~/.claude. רשמי: https://github.com/thedotmack/claude-mem`,source_url:'https://github.com/thedotmack/claude-mem'},
+    {id:'cc5-headroom',title:'Headroom',summary:'פרוקסי טוקנים — מוצר בתשלום',done:false,body:`gglucass/headroom-desktop, מעטפת MIT, האפליקציה בתשלום (ניסיון 7 ימים, מ-~\$3–4 לחודש). אתר: https://extraheadroom.com\nפרוקסי מקומי :6767 שדוחס פלט כלים לפני Anthropic/OpenAI. משנה ~/.claude/settings.json ו-Codex config. ~50% חיסכון הוא טענת המוצר, לא מדידה שלנו.\nWindows נתמך. לא מתקינים כאן — זה מיירט תעבורת API.`,source_url:'https://github.com/gglucass/headroom-desktop'},
+    {id:'cc5-unverified',title:'שלושה שלא אומתו + ליד-ג׳ן',summary:'Omniroot / Setup / TaskObserver',done:false,body:`Omniroot, Claude Code Setup, TaskObserver — אין מאגר רשמי ברור בשמות האלה (חיפוש GitHub ריק או רק configs אישיים). לא נותנים URL ולא מתקינים.\nComment \"Claude\" ב-Reel = DM, לא מקור. דיסקליימר של היוצר עצמו: לבדוק מקורות רשמיים לפני התקנה.\nמקור: https://www.instagram.com/reel/DdWoxPLijC7/`,source_url:'https://www.instagram.com/reel/DdWoxPLijC7/'}
+  ]
+}
+
 ];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -855,7 +869,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===70,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===71,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
