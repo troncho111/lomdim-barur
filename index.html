@@ -823,7 +823,15 @@ Seated calf raise — ‏3×15
     {id:'cc5-unverified',title:'שלושה שלא אומתו + ליד-ג׳ן',summary:'Omniroot / Setup / TaskObserver',done:false,body:`Omniroot, Claude Code Setup, TaskObserver — אין מאגר רשמי ברור בשמות האלה (חיפוש GitHub ריק או רק configs אישיים). לא נותנים URL ולא מתקינים.\nComment \"Claude\" ב-Reel = DM, לא מקור. דיסקליימר של היוצר עצמו: לבדוק מקורות רשמיים לפני התקנה.\nמקור: https://www.instagram.com/reel/DdWoxPLijC7/`,source_url:'https://www.instagram.com/reel/DdWoxPLijC7/'}
   ]
 }
-
+,{
+  id:'ai-free-automation-tools',title:'אוטומציה בלי מודל — הכלים הדטרמיניסטיים',priority:'חשוב',source_url:'https://www.instagram.com/p/Dc_KVSXj3nE/',website_url:'https://github.com/n8n-io/n8n',
+  summary:'רשימת 150 ריפו בפוסט היא משפך. כאן שלוש דלתות רשמיות: בלי טרמינל, CLI, ותשתית כבדה — בלי סוכן.',
+  chapters:[
+    {id:'aifree-what',title:'למה בלי מודל',summary:'אותה משימה, אותה תוצאה, בלי חשבון טוקנים',done:false,body:`סוכן נופל כשה-API למטה, ההקשר שגוי או החשבון מגיע. כלי דטרמיניסטי (cron, rg, rclone, Kuma) עושה את אותה עבודה באותה דרך.\n\nזה לא במקום Hermes. זה מתחתיו: ניטור, חיפוש, גיבוי, תזמון — בלי לנחש.`},
+    {id:'aifree-doors',title:'שלוש דלתות רשמיות',summary:'נבחר כלי אחד לפי כמה טרמינל סובלים',done:false,body:`בלי טרמינל: n8n https://github.com/n8n-io/n8n · Activepieces https://github.com/activepieces/activepieces · NocoDB https://github.com/nocodb/nocodb · Uptime Kuma https://github.com/louislam/uptime-kuma (כבר רץ אצלנו על FTN).\n\nקצת CLI: fzf https://github.com/junegunn/fzf · ripgrep https://github.com/BurntSushi/ripgrep · rclone https://rclone.org · jq https://jqlang.github.io/jq/\n\nתשתית: Temporal https://github.com/temporalio/temporal · Infisical https://github.com/Infisical/infisical\n\nלא מתקינים חבילה של 150. בוחרים כלי אחד למשימה אחת.`},
+    {id:'aifree-limit',title:'הפוסט הוא ליד-ג׳ן',summary:'Comment AUTOMATE אינו מדריך',done:false,body:`Ankush מבקש תגובת AUTOMATE כדי לשלוח PDF. הרשימה המלאה לא אומתה כאן. רישיון, תחזוקה ואבטחה שונים לכל כלי.\n\nKuma כבר בניטור. fzf/rg שימושיים בתחנה. n8n לא מחליף את ה-cron הקיים בלי סיבה.`}
+  ]
+}
 ];
 let topics=loadTopics();
 let selectedId=topics[0]?.id||null;
@@ -870,7 +878,7 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===71,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===72,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
