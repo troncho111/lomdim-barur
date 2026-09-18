@@ -831,13 +831,29 @@ Seated calf raise — ‏3×15
     {id:'aifree-doors',title:'שלוש דלתות רשמיות',summary:'נבחר כלי אחד לפי כמה טרמינל סובלים',done:false,body:`בלי טרמינל: n8n https://github.com/n8n-io/n8n · Activepieces https://github.com/activepieces/activepieces · NocoDB https://github.com/nocodb/nocodb · Uptime Kuma https://github.com/louislam/uptime-kuma (כבר רץ אצלנו על FTN).\n\nקצת CLI: fzf https://github.com/junegunn/fzf · ripgrep https://github.com/BurntSushi/ripgrep · rclone https://rclone.org · jq https://jqlang.github.io/jq/\n\nתשתית: Temporal https://github.com/temporalio/temporal · Infisical https://github.com/Infisical/infisical\n\nלא מתקינים חבילה של 150. בוחרים כלי אחד למשימה אחת.`},
     {id:'aifree-limit',title:'הפוסט הוא ליד-ג׳ן',summary:'Comment AUTOMATE אינו מדריך',done:false,body:`Ankush מבקש תגובת AUTOMATE כדי לשלוח PDF. הרשימה המלאה לא אומתה כאן. רישיון, תחזוקה ואבטחה שונים לכל כלי.\n\nKuma כבר בניטור. fzf/rg שימושיים בתחנה. n8n לא מחליף את ה-cron הקיים בלי סיבה.`}
   ]
+},
+{
+  id:'matt-pocock-ai-coding-workflow',
+  title:'Workflow מלא לפיתוח עם סוכני AI — Matt Pocock',
+  priority:'חשוב',
+  source_url:'https://www.youtube.com/watch?v=-QFHIoCo-Ko',
+  website_url:'https://ai.engineer/talks/-QFHIoCo-Ko-ai-coding-workflow',
+  summary:'איך להפוך רעיון עמום לעבודה קטנה, בדיקה וניתנת למסירה: תיאום אנושי, PRD, פרוסות אנכיות, TDD, ביקורת בהקשר נקי ו-QA חי.',
+  chapters:[
+    {id:'pocock-context',title:'1. להישאר באזור החכם',summary:'משימה קטנה והקשר נקי עדיפים על שיחה אינסופית',done:false,body:`ככל שהשיחה מתנפחת, איכות החלטות הקוד יורדת גם אם חלון ההקשר טרם התמלא. חלק את העבודה למשימות קצרות; העבר חקירה כבדה לתת-סוכן; פתח הקשר נקי לביקורת.\n\nאצלנו: כל סוכן מקבל יעד אחד, קבצים רלוונטיים וקריטריון סיום — לא את כל ההיסטוריה.`},
+    {id:'pocock-alignment',title:'2. Grill Me ואז PRD',summary:'סוגרים אי-בהירות לפני כתיבת הקוד',done:false,body:`הסוכן חוקר את הקוד ושואל על החלטות מוצר, חריגים ומה מחוץ לתחום. אחרי שהתמונה מוסכמת, מרכזים אותה ב-PRD: בעיה, פתרון, סיפורי משתמש, החלטות מימוש, בדיקות ומה לא בונים.\n\nה-PRD הוא יעד עבודה, לא אמת נצחית. סוגרים או מוחקים מסמכי תכנון שהתיישנו כדי שלא יטעו סוכנים בהמשך.`},
+    {id:'pocock-tracer',title:'3. Tracer Bullet ראשון',summary:'פרוסה אנכית עובדת מקצה לקצה לפני שכבות שלמות',done:false,body:`לא בונים קודם את כל ה-DB, אחר כך API ולבסוף UI. המשימה הראשונה חוצה את כל השכבות ומוכיחה התנהגות אחת אמיתית.\n\nדוגמה: במקום “בנה שירות ניקוד”, בונים “השלמת שיעור מעניקה נקודות והן מוצגות בדשבורד”. כך תקלות אינטגרציה מתגלות מוקדם. רק אחרי שהפרוסה עובדת מרחיבים.`},
+    {id:'pocock-execution',title:'4. TDD, AFK וביקורת נקייה',summary:'האוטומציה מממשת עבודה תחומה — היא לא בעלת האיכות',done:false,body:`מחלקים את ה-PRD לכרטיסים עצמאיים עם blockers ברורים. משימות AFK שנבדקו אנושית יכולות לעבור ללולאת מימוש: בדיקה נכשלת, קוד מינימלי, בדיקות ו-type checks.\n\nאת הביקורת מריץ סוכן חדש בהקשר נקי. לפני לילה אוטונומי מריצים איטרציה יחידה כמה פעמים ורואים שהבחירה, המימוש והמשוב נכונים.`},
+    {id:'pocock-human-qa',title:'5. בדיקות שעברו אינן הוכחת מוצר',summary:'QA חי ובעלות אנושית נשארים שער הסיום',done:false,body:`בדוגמה כל הבדיקות ו-type checks עברו, אבל שימוש אמיתי חשף טבלת DB חסרה. לכן “ירוק” אינו “עובד”.\n\nשער סיום: לפתוח את המוצר, לבצע את המסלול שהמשתמש מבצע, לבדוק את המערכת החיה ולהחזיר כל ממצא חדש ל-backlog. בני אדם נשארים אחראים לארכיטקטורה, טעם, סקירת קוד ואיכות סופית.`}
+  ]
 }
 ];
 let topics=loadTopics();
 function nextUndone(){const important=topics.filter(t=>t.priority==='חשוב'),rest=topics.filter(t=>t.priority!=='חשוב');for(const t of important.concat(rest)){const c=t.chapters.find(ch=>!ch.done);if(c)return {t,c}}return {t:topics[0]||null,c:topics[0]?.chapters[0]||null}}
 const boot=nextUndone();
-let selectedId=boot.t?.id||null;
-let selectedChapterId=boot.c?.id||null;
+const directTopic=topics.find(topic=>topic.id===new URLSearchParams(location.search).get('topic'));
+let selectedId=directTopic?.id||boot.t?.id||null;
+let selectedChapterId=(directTopic?.chapters.find(chapter=>!chapter.done)||directTopic?.chapters[0]||boot.c)?.id||null;
 let filter='all';
 let libraryOpen=false;
 let readerScale=Number(localStorage.getItem('hebrew-learning-reader-scale')||1);
@@ -884,12 +900,12 @@ $('export-data').addEventListener('click',()=>{const blob=new Blob([JSON.stringi
 $('import-trigger').addEventListener('click',()=>$('import-data').click());$('import-data').addEventListener('change',async event=>{const file=event.target.files[0];event.target.value='';if(!file)return;try{const parsed=JSON.parse(await file.text()),incoming=Array.isArray(parsed)?parsed:parsed.topics;if(!Array.isArray(incoming)||!incoming.every(validTopic))throw new Error('invalid');if(!confirm('השחזור יחליף את הספרייה הנוכחית. להמשיך?'))return;topics=mergeCatalog(incoming);selectedId=topics[0]?.id||null;selectedChapterId=topics[0]?.chapters[0]?.id||null;saveTopics();render();showToast('הגיבוי שוחזר')}catch{showToast('הקובץ אינו גיבוי תקין')}});
 function selfTest(){const key=`${STORAGE_KEY}-test`,check=(condition,message)=>{if(!condition)throw new Error(message)};try{
   const sample={id:'t',title:'בדיקה',summary:'תקציר',priority:'חשוב',chapters:[{id:'c',title:'פרק',summary:'קצר',body:'תוכן',done:false}]};
-  check(DEFAULT_TOPICS.length===72,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
+  check(DEFAULT_TOPICS.length===73,'catalog size');check(new Set(DEFAULT_TOPICS.map(topic=>topic.id)).size===DEFAULT_TOPICS.length,'unique catalog ids');check(DEFAULT_TOPICS.every(topic=>validTopic(topic)&&topic.source_url?.startsWith('https://')),'valid sourced catalog');
   check(validTopic(sample),'valid topic');check(topicProgress(sample)===0,'initial progress');sample.chapters[0].done=true;check(topicProgress(sample)===100,'complete progress');
   const old=clone(DEFAULT_TOPICS[0]);delete old.source_url;old.chapters=old.chapters.slice(0,1);const migrated=mergeCatalog([old,sample]);check(migrated.length===DEFAULT_TOPICS.length+1,'catalog merged with user topic');check(migrated.find(topic=>topic.id===old.id).source_url,'source upgraded');check(migrated.find(topic=>topic.id===old.id).chapters.length===DEFAULT_TOPICS[0].chapters.length,'missing chapters restored');check(migrated.some(topic=>topic.id==='t'),'user topic preserved');
   localStorage.setItem(key,JSON.stringify([sample]));check(JSON.parse(localStorage.getItem(key))[0].title==='בדיקה','storage roundtrip');localStorage.removeItem(key);document.documentElement.dataset.selfTest='PASS'
 }catch(error){localStorage.removeItem(key);document.documentElement.dataset.selfTest=`FAIL:${error.message}`}}
-selfTest();render();
+selfTest();render();if(directTopic)reveal('#reader');
 </script>
 </body>
 </html>
